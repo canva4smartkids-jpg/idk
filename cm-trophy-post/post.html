@@ -2,157 +2,121 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0b1a4a;
-    --blue:#1e3fae;      /* CM Trophy royal blue */
-    --green:#00704a;     /* GITAM green */
-    --deep-green:#00382a;
-    --gold:#f6c22b;      /* CM Trophy yellow */
-    --gold-2:#ffdf6e;
-    --bronze:#c9824a;
-    --white:#ffffff;
+    --ink:#050c0a;
+    --green:#0a5a42;        /* GITAM green */
+    --green-hi:#13896a;
+    --royal:#1e3fae;        /* CM Trophy blue */
+    --gold:#d8b46a;         /* champagne gold — CM yellow, refined */
+    --gold-hi:#f3dfae;
+    --bronze:#c08a62;
+    --paper:#f4efe6;
+    --muted:rgba(244,239,230,.62);
+    --hair:rgba(216,180,106,.38);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{width:1080px;height:1350px;overflow:hidden;background:var(--navy)}
-  .post{
-    position:relative;width:1080px;height:1350px;overflow:hidden;
-    font-family:'Barlow Condensed',sans-serif;color:var(--white);
+  body{width:1080px;height:1350px;overflow:hidden;background:var(--ink)}
+  .post{position:relative;width:1080px;height:1350px;overflow:hidden;color:var(--paper);
+    font-family:'Archivo',sans-serif;
     background:
-      radial-gradient(900px 700px at 85% 15%, rgba(30,63,174,.95), transparent 60%),
-      radial-gradient(900px 800px at 0% 100%, rgba(0,112,74,.95), transparent 60%),
-      linear-gradient(135deg,#0d2370 0%, #0a1d55 45%, #04392c 100%);
-  }
-  /* subtle grid texture */
-  .post::before{
-    content:"";position:absolute;inset:0;
-    background-image:
-      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
-    background-size:54px 54px;
-    mask-image:linear-gradient(180deg, transparent 0%, #000 25%, #000 75%, transparent 100%);
-  }
-  /* big diagonal slashes */
-  .slash{position:absolute;transform:skewX(-20deg);}
-  .s1{right:-120px;top:150px;width:200px;height:1100px;background:linear-gradient(180deg,rgba(246,194,43,.0),rgba(246,194,43,.16),rgba(246,194,43,0));}
-  .s2{right:120px;top:150px;width:34px;height:1100px;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.07),rgba(255,255,255,0));}
-  .s3{left:-60px;top:380px;width:90px;height:900px;background:linear-gradient(180deg,rgba(0,170,110,0),rgba(0,170,110,.25),rgba(0,170,110,0));}
+      radial-gradient(620px 620px at 50% 54%, rgba(19,137,106,.55), transparent 70%),
+      radial-gradient(700px 500px at 100% 0%, rgba(30,63,174,.35), transparent 70%),
+      radial-gradient(600px 600px at 0% 100%, rgba(10,90,66,.45), transparent 70%),
+      linear-gradient(180deg,#07120f 0%, #061411 55%, #040a08 100%);}
 
-  /* logo zone — intentionally empty */
-  .logo-zone{position:absolute;left:0;right:0;top:0;height:160px;}
-  .logo-rule{position:absolute;left:60px;right:60px;top:160px;height:3px;
-    background:linear-gradient(90deg,transparent,var(--gold) 15%,var(--gold) 85%,transparent);opacity:.9}
+  /* film grain */
+  .grain{position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;pointer-events:none;z-index:20}
 
-  /* headline */
-  .kicker{position:absolute;left:0;right:0;top:186px;text-align:center;
-    font-weight:700;letter-spacing:.42em;font-size:26px;color:var(--gold-2);text-transform:uppercase}
+  /* fine vertical light beams like the stage rig */
+  .beam{position:absolute;top:-40px;width:220px;height:900px;transform-origin:top center;
+    background:linear-gradient(180deg,rgba(243,223,174,.10),transparent 80%);filter:blur(18px)}
+  .b1{left:330px;transform:rotate(14deg)} .b2{left:560px;transform:rotate(-12deg)}
+
+  /* ── logo zone (kept empty) ─────────────────── */
+  .logo-zone{position:absolute;left:0;right:0;top:0;height:150px}
+
+  /* meta row */
+  .meta{position:absolute;left:72px;right:72px;top:168px;display:flex;justify-content:space-between;
+    font-size:15px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);
+    font-variation-settings:'wdth' 100}
+  .meta::after{content:"";position:absolute;left:0;right:0;top:30px;height:1px;background:var(--hair)}
+
+  /* background word */
+  .ghost{position:absolute;left:0;right:0;top:470px;text-align:center;
+    font-weight:900;font-size:300px;line-height:.8;letter-spacing:-.01em;
+    font-variation-settings:'wdth' 62;text-transform:uppercase;
+    color:transparent;-webkit-text-stroke:1.5px rgba(216,180,106,.22)}
+
   .headline{position:absolute;left:0;right:0;top:214px;text-align:center;
-    font-family:'Anton',sans-serif;font-size:142px;line-height:1;letter-spacing:.02em;
-    background:linear-gradient(180deg,#fff6c9 0%,var(--gold) 48%,#d99a12 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 6px 0 rgba(0,0,0,.35));}
-  .sub{position:absolute;left:0;right:0;top:372px;text-align:center;font-size:31px;font-weight:600;letter-spacing:.04em}
-  .sub b{color:var(--gold);font-weight:800}
+    font-family:'Instrument Serif',serif;font-style:italic;font-size:150px;line-height:1;letter-spacing:-.01em;
+    background:linear-gradient(180deg,var(--gold-hi) 10%,var(--gold) 60%,#a9853f 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;z-index:6}
 
-  /* photo frame */
-  .frame-wrap{position:absolute;left:66px;top:448px;width:540px;height:640px}
-  .frame-back{position:absolute;inset:0;transform:translate(22px,22px) rotate(-3deg);
-    background:linear-gradient(135deg,var(--green),#00a36c);border-radius:6px}
-  .frame-back2{position:absolute;inset:0;transform:translate(-14px,-14px) rotate(-3deg);
-    border:3px solid var(--gold);border-radius:6px}
-  .frame{position:absolute;inset:0;transform:rotate(-3deg);border-radius:6px;overflow:hidden;
-    border:8px solid #fff;box-shadow:0 30px 60px rgba(0,0,0,.5);background:#111}
-  .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
-  .frame::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,transparent 70%,rgba(4,20,60,.55));}
-  .tag{position:absolute;left:-10px;bottom:46px;transform:rotate(-3deg);
-    background:var(--gold);color:var(--navy);font-family:'Anton';font-size:30px;
-    letter-spacing:.06em;padding:8px 22px 8px 26px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
-  .tag::after{content:"";position:absolute;right:-18px;top:0;border-left:18px solid var(--gold);
-    border-top:27px solid transparent;border-bottom:27px solid transparent}
+  .halo{position:absolute;left:290px;top:400px;width:500px;height:500px;border-radius:50%;
+    border:1px solid rgba(216,180,106,.28);z-index:3;box-shadow:0 0 120px rgba(19,137,106,.35) inset}
+  /* subject */
+  .subject{position:absolute;left:170px;top:338px;width:750px;z-index:4;
+    filter:drop-shadow(0 0 1px rgba(243,223,174,.35)) drop-shadow(0 30px 60px rgba(0,0,0,.55)) contrast(1.05) saturate(.82) brightness(.97);}
+  .floor{position:absolute;left:0;right:0;bottom:0;height:460px;z-index:5;
+    background:linear-gradient(180deg,rgba(5,12,10,0) 0%,rgba(5,12,10,.9) 22%,#050c0a 40%)}
 
-  /* right column */
-  .info{position:absolute;left:650px;top:500px;width:380px}
-  .label{font-size:22px;font-weight:700;letter-spacing:.3em;color:var(--gold-2);text-transform:uppercase}
-  .name{font-family:'Anton';font-size:78px;line-height:.98;margin-top:6px;text-transform:uppercase;letter-spacing:.01em}
-  .name span{display:block;color:var(--gold)}
-  .bar{width:90px;height:6px;background:var(--gold);margin:22px 0 26px;transform:skewX(-20deg)}
+  /* bottom copy */
+  .copy{position:absolute;left:72px;right:72px;bottom:62px;z-index:8}
+  .for{font-family:'Instrument Serif',serif;font-style:italic;font-size:30px;color:var(--gold);letter-spacing:.01em}
+  .name{font-weight:800;font-size:97px;white-space:nowrap;line-height:.92;margin-top:6px;text-transform:uppercase;
+    letter-spacing:-.005em;font-stretch:66%;color:var(--paper)}
+  .event{font-size:18px;font-weight:500;letter-spacing:.06em;color:var(--muted);margin-top:16px;
+    font-variation-settings:'wdth' 100}
+  .event b{color:var(--paper);font-weight:600}
 
-  .medal{display:flex;gap:16px;align-items:flex-start;margin-bottom:24px;
-    background:linear-gradient(90deg,rgba(255,255,255,.10),rgba(255,255,255,.02));
-    border-left:6px solid var(--c);padding:16px 16px 16px 16px;border-radius:0 6px 6px 0}
-  .disc{flex:0 0 66px;height:66px;border-radius:50%;display:grid;place-items:center;
-    font-family:'Anton';font-size:30px;color:#2a1b00;
-    background:radial-gradient(circle at 35% 30%,var(--hi),var(--c) 55%,var(--lo));
-    box-shadow:0 0 0 4px rgba(255,255,255,.18),0 8px 18px rgba(0,0,0,.35)}
-  .gold{--c:#f6c22b;--hi:#fff3b0;--lo:#b87f00}
-  .bronze{--c:#c9824a;--hi:#f6caa0;--lo:#7d4419}
-  .m-type{font-family:'Anton';font-size:34px;line-height:1;color:var(--c);letter-spacing:.04em}
-  .m-game{font-size:33px;font-weight:800;line-height:1.05;margin-top:4px}
-  .m-team{font-size:21px;font-weight:600;line-height:1.2;margin-top:6px;color:#d6e2ff;font-style:italic}
-
-  /* bottom band — CM Trophy style hazard stripe */
-  .band{position:absolute;left:0;right:0;bottom:118px;height:74px;background:var(--gold);
-    display:flex;align-items:center;justify-content:center;gap:26px;color:var(--navy);
-    font-family:'Anton';font-size:36px;letter-spacing:.08em;transform:skewY(-2deg);
-    box-shadow:0 12px 30px rgba(0,0,0,.35)}
-  .band i{display:inline-block;width:12px;height:12px;background:var(--navy);transform:rotate(45deg)}
-  .stripes{position:absolute;left:0;right:0;bottom:192px;height:14px;transform:skewY(-2deg);
-    background:repeating-linear-gradient(-45deg,var(--navy) 0 14px,var(--gold) 14px 28px);opacity:.95}
-  .footer{position:absolute;left:0;right:0;bottom:38px;text-align:center}
-  .footer .proud{font-size:30px;font-weight:700;letter-spacing:.06em}
-  .footer .proud b{color:var(--gold)}
-  .footer .hash{font-size:22px;font-weight:600;letter-spacing:.24em;color:#9fd9bf;margin-top:4px}
+  .results{display:grid;grid-template-columns:1fr 1fr;margin-top:30px;border-top:1px solid var(--hair)}
+  .r{padding:22px 0 0}
+  .r + .r{padding-left:36px;border-left:1px solid var(--hair)}
+  .r-k{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:700;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--c);font-variation-settings:'wdth' 100}
+  .r-k i{width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,var(--hi),var(--c) 60%)}
+  .r-v{font-family:'Instrument Serif',serif;font-size:44px;line-height:1.02;margin-top:10px;color:var(--paper)}
+  .r-s{font-size:15px;font-weight:500;letter-spacing:.04em;color:var(--muted);margin-top:8px;line-height:1.35;
+    font-variation-settings:'wdth' 100}
+  .gold{--c:var(--gold);--hi:var(--gold-hi)}
+  .bronze{--c:var(--bronze);--hi:#ecc3a2}
 </style>
 </head>
 <body>
 <div class="post">
-  <div class="slash s1"></div><div class="slash s2"></div><div class="slash s3"></div>
+  <svg class="grain" width="1080" height="1350"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+  <div class="beam b1"></div><div class="beam b2"></div>
 
   <div class="logo-zone"></div>
-  <div class="logo-rule"></div>
 
-  <div class="kicker">GITAM Sports · Heartiest</div>
-  <div class="headline">CONGRATULATIONS</div>
-  <div class="sub">for winning <b>GOLD</b> &amp; <b>BRONZE</b> at the Chief Minister's Trophy 2026 · Tamil Nadu</div>
+  <div class="meta"><span>GITAM Sports</span><span>CM Trophy 2026 · Tamil Nadu</span></div>
 
-  <div class="frame-wrap">
-    <div class="frame-back"></div>
-    <div class="frame-back2"></div>
-    <div class="frame"><img src="photo.jpg" alt=""></div>
-    <div class="tag">DOUBLE PODIUM</div>
-  </div>
+  <div class="headline">Congratulations</div>
 
-  <div class="info">
-    <div class="label">Champion</div>
-    <div class="name">Sreesanth<span>Mandalapu</span></div>
-    <div class="bar"></div>
+  <div class="halo"></div>
+  <img class="subject" src="subject.png" alt="">
+  <div class="floor"></div>
 
-    <div class="medal gold">
-      <div class="disc">1</div>
-      <div>
-        <div class="m-type">GOLD</div>
-        <div class="m-game">Street Fighter 6</div>
+  <div class="copy">
+    <div class="for">on winning Gold &amp; Bronze</div>
+    <div class="name">Sreesanth Mandalapu</div>
+    <div class="event"><b>Chief Minister's Trophy 2026</b> &nbsp;·&nbsp; Tamil Nadu &nbsp;·&nbsp; Esports</div>
+
+    <div class="results">
+      <div class="r gold">
+        <div class="r-k"><i></i>Gold</div>
+        <div class="r-v">Street Fighter 6</div>
+        <div class="r-s">Individual</div>
+      </div>
+      <div class="r bronze">
+        <div class="r-k"><i></i>Bronze</div>
+        <div class="r-v">Valorant</div>
+        <div class="r-s">Kaiser Impact X Team Thamizh Valor</div>
       </div>
     </div>
-
-    <div class="medal bronze">
-      <div class="disc">3</div>
-      <div>
-        <div class="m-type">BRONZE</div>
-        <div class="m-game">Valorant</div>
-        <div class="m-team">Team: Kaiser Impact X<br>Team Thamizh Valor</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="stripes"></div>
-  <div class="band">CM TROPHY 2026 <i></i> TAMIL NADU <i></i> ESPORTS</div>
-
-  <div class="footer">
-    <div class="proud">A proud moment for the <b>GITAM</b> family</div>
-    <div class="hash">#GITAMSPORTS · #CMTROPHY2026</div>
   </div>
 </div>
 </body>
